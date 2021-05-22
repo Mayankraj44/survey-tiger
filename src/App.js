@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bootstrap/dist/css/bootstrap.css'
+import Logo from './logo.png'
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Menu from './components/Menu' 
+import CreateSurvey from './components/CreateSurvey';
+import Publish from './components/Publish';
+import { useState } from 'react';
+import {Link} from 'react-router-dom'
 
-function App() {
+function App() { 
+  const [question,setQuestion] = useState([]);
+  console.log(question);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div className="App">
+   <div className='col-md-10 offset-md-1 col-12 text-center'>
+   
+    
+    <BrowserRouter>
+    <Link to='/'>
+    <img className='col-md-6' alt='logo' src={Logo}/>
+    </Link>
+    <Switch>
+
+      <Route path='/' component={Menu} exact/>
+      <Route path='/create'  exact >
+        <CreateSurvey question={question} setQuestion={setQuestion}/></Route>
+      <Route path='/publish'  exact>
+        <Publish question={question} />
+      </Route>
+    </Switch>
+    </BrowserRouter>
+   </div>
+   </div>
   );
 }
+
 
 export default App;
